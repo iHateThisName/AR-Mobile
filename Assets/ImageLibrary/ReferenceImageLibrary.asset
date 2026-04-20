@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: Unity.XR.ARSubsystems::UnityEngine.XR.ARSubsystems.XRReferenceImageLibrary
+  m_GuidLow: 5561499505289768741
+  m_GuidHigh: 1439907895549364154
+  m_DataStore:
+    m_Storage: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4884946305160789684
+      m_GuidHigh: 4902041917657592459
+    m_SerializedTextureGuid:
+      m_GuidLow: 4878589594928600300
+      m_GuidHigh: 10175054983100735418
+    m_Size: {x: 2.1056, y: 2}
+    m_SpecifySize: 1
+    m_Name: Pizza Poster
+    m_Texture: {fileID: 0}
