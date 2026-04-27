@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PortalTransitionURP : MonoBehaviour
-{
+public class PortalTransitionURP : MonoBehaviour {
     public Transform interiorContainer;
     public Transform insideSkyboxCamera;
 
@@ -12,16 +11,14 @@ public class PortalTransitionURP : MonoBehaviour
     private int layerInside;
     private Camera mainCam;
 
-    void Start()
-    {
+    void Start() {
         mainCam = Camera.main;
         layerOutside = LayerMask.NameToLayer(PortalContentsLayer);
         layerInside = LayerMask.NameToLayer(InsidePortalLayer);
     }
 
 
-    void OnTriggerStay(Collider other)
-    {
+    void OnTriggerStay(Collider other) {
         if (other.transform != mainCam.transform) return;
 
 
@@ -29,25 +26,20 @@ public class PortalTransitionURP : MonoBehaviour
 
         Vector3 localPos = transform.InverseTransformPoint(nearPlanePos);
 
-        if (localPos.z < 0f)
-        {
+        if (localPos.z < 0f) {
             SetLayerRecursively(interiorContainer.gameObject, layerInside);
             SetLayerRecursively(insideSkyboxCamera.transform.GetChild(0).gameObject, layerInside);
-        }
-        else
-        {
+        } else {
             SetLayerRecursively(interiorContainer.gameObject, layerOutside);
             SetLayerRecursively(insideSkyboxCamera.transform.GetChild(0).gameObject, layerOutside);
         }
     }
 
-    private void SetLayerRecursively(GameObject obj, int newLayer)
-    {
+    private void SetLayerRecursively(GameObject obj, int newLayer) {
         if (obj == null) return;
 
         obj.layer = newLayer;
-        foreach (Transform child in obj.transform)
-        {
+        foreach (Transform child in obj.transform) {
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }

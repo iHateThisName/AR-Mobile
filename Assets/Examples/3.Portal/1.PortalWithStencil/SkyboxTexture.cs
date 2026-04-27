@@ -17,9 +17,13 @@ public class SkyboxTexture : MonoBehaviour
     private ScreenOrientation previousOrientation;
     private float previousFov, previousFarClip;
 
+    public string PortalContentsLayer = "PortalContents";
+    private int layerOutside;
+
     void Start()
     {
         skyboxCamera = GetComponent<Camera>();
+        layerOutside = LayerMask.NameToLayer(PortalContentsLayer);
     }
 
     void Update()
@@ -49,6 +53,7 @@ public class SkyboxTexture : MonoBehaviour
 
         // Create new quad
         quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        quad.layer = layerOutside;
         var quadTr = quad.transform;
         quadTr.parent = this.transform;
 
