@@ -40,7 +40,9 @@ public class ARPlacerController : MonoBehaviour {
             Vector3 hitPosition = rayHits[0].pose.position;
             Quaternion hitRotation = rayHits[0].pose.rotation;
 
-            Instantiate(this.raycastManager.raycastPrefab, hitPosition, hitRotation);
+            //Instantiate(this.raycastManager.raycastPrefab, hitPosition, hitRotation);
+            GameManager.Instance.OnTap(hitPosition, hitRotation);
+
         }
 
         StartCoroutine(PlacingCooldownCoroutine());
