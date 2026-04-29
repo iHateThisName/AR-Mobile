@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TappController : MonoBehaviour {
 
@@ -11,6 +13,7 @@ public class TappController : MonoBehaviour {
 
     [Header("Tapp Settings")]
     [SerializeField] private int tappNumber;
+    [SerializeField] private UnityEvent OnPuzzelSpawn;
 
 
     private void Awake() {
@@ -25,6 +28,7 @@ public class TappController : MonoBehaviour {
 
         if (this.tappNumber == 3) {
             this.modelPuzzel.gameObject.SetActive(true);
+            this.OnPuzzelSpawn.Invoke();
 
         } else if (this.tappNumber == 2) {
             this.modelTappTwo.gameObject.SetActive(true);

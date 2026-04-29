@@ -28,12 +28,9 @@ public class ARPlacerController : MonoBehaviour {
         if (this.isPlacing) return;
             
 
-        if (Touchscreen.current != null) {
-            var touch = Touchscreen.current.primaryTouch;
-            if (touch.press.wasPressedThisFrame) {
-                this.isPlacing = true;
-                PlaceObject(touch.position.ReadValue());
-            }
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame) {
+            this.isPlacing = true;
+            PlaceObject(Touchscreen.current.primaryTouch.position.ReadValue());
         } else if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame) {
             this.isPlacing = true;
             PlaceObject(Mouse.current.position.ReadValue());
