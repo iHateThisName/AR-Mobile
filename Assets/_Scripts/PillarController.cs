@@ -151,7 +151,7 @@ public class PillarController : MonoBehaviour {
             targetTransform = this.middleSegment;
             // Using localEulerAngles is safer in case the parent is rotated.
         } else {
-            Debug.LogError($"GetRune is not implemented for {segment}. Returning None.");
+            Debug.LogWarning($"GetRune is not implemented for {segment}. Returning None.");
             return EnumRunes.None;
         }
 
