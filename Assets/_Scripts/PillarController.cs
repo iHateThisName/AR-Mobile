@@ -14,7 +14,7 @@ public class PillarController : MonoBehaviour {
     [SerializeField] private Vector2 rotationSpeedMinMax = new Vector2(32f, 35f);
 
     private enum EnumRunes { None, Cross, Triangle, Circle, Blank }
-    private enum EnumSegment { Top, Middle, Bottom }
+    public enum EnumSegment { Top, Middle, Bottom }
 
     private int rotationCost = 60;
 
@@ -40,6 +40,9 @@ public class PillarController : MonoBehaviour {
     [ContextMenu("Debug Middle Side")] public void DebugMiddleSide() => Debug.Log($"Current Middle Rune: {GetRune(EnumSegment.Middle)}");
     [ContextMenu("Rotate Middle Left")] public void RotateMiddleLeft() => RotateSegment(EnumSegment.Middle, true);
     [ContextMenu("Rotate Middle Right")] public void RotateMiddleRight() => RotateSegment(EnumSegment.Middle, false);
+
+    public void RotateLeftByEnumIndex(int segmentIndex) => RotateSegment((EnumSegment)segmentIndex, true);
+    public void RotateRightByEnumIndex(int segmentIndex) => RotateSegment((EnumSegment)segmentIndex, false);
 
     private IEnumerator IdleRotate(Transform targetTransform, float rotationSpeed) {
         float maxRotation = this.rotationCost - 5f;
