@@ -7,7 +7,7 @@ You can “damage” the world by tapping:
 
 - **Tap 1–2:** Small cracks appear in the detected surface/floor.
 - **Tap 3:** The crack becomes large enough to open a **rift/tear** between our world and **the void**.
-- From the rift, an **obelisk** emerges — this becomes the core interactive **puzzle object**.
+- From the rift, an **obelisk** emerges this becomes the core interactive **puzzle object**.
 - After solving the puzzle, the **rift expands** and consumes everything, leaving only **the void** visible.
 
 ## Core Gameplay / Objective
@@ -15,7 +15,7 @@ You can “damage” the world by tapping:
 
 - The obelisk has **3 segments**
 - Each segment can be **rotated by dragging on the phone screen** 
-- When all segments are in the correct position, the puzzle completes and triggers the ending sequence (rift expansion → void)
+- When all segments are in the correct position, the puzzle completes and triggers the ending sequence (rift expand)
 
 ## AR Technology Use (Assignment Requirements)
 This project is designed to meet the mandatory constraints:
