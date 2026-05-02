@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -32,20 +33,40 @@ public class ARDragDetection : MonoBehaviour {
     }
 
     private void Update() {
-        if (!this.isDragging || Input.touchCount == 0) return;
-        this.currentTouchPosition = Input.GetTouch(0).position;
+        if (!this.isDragging) return; // Only update touch position if dragging
+
+        bool hasTouch = Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed;
+        bool hasMouse = Mouse.current != null && Mouse.current.leftButton.isPressed;
+
+        if (hasTouch) {
+            this.currentTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+        } else if (hasMouse) {
+            this.currentTouchPosition = Mouse.current.position.ReadValue();
+        }
+
+        Debug.Log($"Current Touch Position: {this.currentTouchPosition}");
     }
     private void OnSelectEntered(SelectEnterEventArgs arg0) {
-        if (Input.touchCount > 0) {
-            this.initialTouchPosition = Input.GetTouch(0).position;
+        bool hasTouch = Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed;
+        bool hasMouse = Mouse.current != null && Mouse.current.leftButton.isPressed;
+
+        if (hasTouch) {
+            this.initialTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+            this.isDragging = true;
+        } else if (hasMouse) {
+            this.initialTouchPosition = Mouse.current.position.ReadValue();
             this.isDragging = true;
         }
+
+        Debug.Log($"Initial Touch Position: {this.initialTouchPosition}");
     }
     private void OnSelectExited(SelectExitEventArgs arg0) {
         this.isDragging = false;
 
         Vector2 deltaDrag = this.currentTouchPosition - this.initialTouchPosition;
         HandleDrag(deltaDrag);
+
+        Debug.Log($"Drag Delta: {deltaDrag}");
     }
 
 

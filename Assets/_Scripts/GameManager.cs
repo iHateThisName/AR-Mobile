@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager> {
             Instantiate(this.pillarPrefab, position, rotation);
         } else {
             // For testing purposes.
-            this.CurrentTaps = 0;
+            //this.CurrentTaps = 0;
         }
 
         return this.CurrentTaps;
