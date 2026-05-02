@@ -21,22 +21,29 @@ public class TappController : MonoBehaviour {
         }
     }
 
+    private void OnDisable() {
+        GameManager.TapDetected -= OnTapDetected;
+    }
+
+    private void OnTapDetected() {
+        if (this.tappNumber != GameManager.Instance.CurrentTaps) {
+            Destroy(transform.root.gameObject, 0.25f);
+        }
+    }
+
     private void Start() {
         this.tappNumber = GameManager.Instance.CurrentTaps;
 
         if (this.tappNumber == 3) {
             this.modelPuzzel.gameObject.SetActive(true);
-            this.modelTappTwo.gameObject.SetActive(false);
-            this.modelTappOne.gameObject.SetActive(false);
             this.OnPuzzelSpawn.Invoke();
-
         } else if (this.tappNumber == 2) {
             this.modelTappTwo.gameObject.SetActive(true);
-            this.modelTappOne.gameObject.SetActive(false);
-
         } else if (this.tappNumber == 1) {
             this.modelTappOne.gameObject.SetActive(true);
         }
+
+        GameManager.TapDetected += OnTapDetected;
     }
 }
 
