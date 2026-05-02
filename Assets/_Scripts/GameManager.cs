@@ -1,5 +1,7 @@
 using Assets.Scripts.Singleton;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager> {
@@ -9,6 +11,23 @@ public class GameManager : Singleton<GameManager> {
 
     [field: SerializeField] public int MaxTaps { get; private set; } = 3;
     [SerializeField] private GameObject pillarPrefab;
+
+    public static Dictionary<EnumDialogueType, string[]> DialogueLines { get; private set; } = new Dictionary<EnumDialogueType, string[]> {
+        { EnumDialogueType.None, new string[] {} },
+        { EnumDialogueType.Scan, DialogueTreeData.ScanEnvironmentText },
+        { EnumDialogueType.FirstCrack, DialogueTreeData.FirstCrackText },
+        { EnumDialogueType.RiftOpened, DialogueTreeData.RiftOpenedText },
+        { EnumDialogueType.Obelisk, DialogueTreeData.ObeliskText },
+        { EnumDialogueType.Completion, DialogueTreeData.CompletionText },
+        { EnumDialogueType.Ending, DialogueTreeData.EndingText }
+    };
+
+    private IEnumerator Start() {
+        
+        yield return new WaitForSeconds(3f);
+
+        CanvasController.Instance.StartNextConversation(EnumDialogueType.Scan);
+    }
 
     public int OnTap(Vector3 position, Quaternion rotation) {
         if (this.CurrentTaps == this.MaxTaps) return this.CurrentTaps;
@@ -28,6 +47,10 @@ public class GameManager : Singleton<GameManager> {
     public void MoveSegment(PillarController.EnumSegment segment, bool isLeft) {
         if (this.CurrentTaps != this.MaxTaps) return;
         PillarController.Instance.RotateSegment(segment, isLeft);
+    }
+
+    public int GetDialogueLength(EnumDialogueType dialogueType) {
+        return DialogueLines[dialogueType].Length;
     }
 
 }

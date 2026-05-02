@@ -34,13 +34,16 @@ public class TappController : MonoBehaviour {
     private void Start() {
         this.tappNumber = GameManager.Instance.CurrentTaps;
 
-        if (this.tappNumber == 3) {
+        if (this.tappNumber == GameManager.Instance.MaxTaps) {
             this.modelPuzzel.gameObject.SetActive(true);
             this.OnPuzzelSpawn.Invoke();
+            CanvasController.Instance.StartNextConversation(EnumDialogueType.Obelisk);
         } else if (this.tappNumber == 2) {
             this.modelTappTwo.gameObject.SetActive(true);
+            CanvasController.Instance.StartNextConversation(EnumDialogueType.RiftOpened);
         } else if (this.tappNumber == 1) {
             this.modelTappOne.gameObject.SetActive(true);
+            CanvasController.Instance.StartNextConversation(EnumDialogueType.FirstCrack);
         }
 
         GameManager.TapDetected += OnTapDetected;
