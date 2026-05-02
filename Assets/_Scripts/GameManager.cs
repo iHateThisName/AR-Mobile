@@ -7,14 +7,14 @@ public class GameManager : Singleton<GameManager> {
 
     [field: SerializeField] public int CurrentTaps { get; private set; } = 0;
 
-    [SerializeField] private int maxTaps = 3;
+    [field: SerializeField] public int MaxTaps { get; private set; } = 3;
     [SerializeField] private GameObject pillarPrefab;
 
     public int OnTap(Vector3 position, Quaternion rotation) {
-        if (this.CurrentTaps == this.maxTaps) return this.CurrentTaps;
+        if (this.CurrentTaps == this.MaxTaps) return this.CurrentTaps;
         this.CurrentTaps++;
 
-        if (this.CurrentTaps <= this.maxTaps) {
+        if (this.CurrentTaps <= this.MaxTaps) {
             Instantiate(this.pillarPrefab, position, rotation);
         } else {
             // For testing purposes.
@@ -24,4 +24,10 @@ public class GameManager : Singleton<GameManager> {
         TapDetected?.Invoke();
         return this.CurrentTaps;
     }
+
+    public void MoveSegment(PillarController.EnumSegment segment, bool isLeft) {
+        if (this.CurrentTaps != this.MaxTaps) return;
+        PillarController.Instance.RotateSegment(segment, isLeft);
+    }
+
 }

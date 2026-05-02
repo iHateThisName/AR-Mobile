@@ -1,7 +1,8 @@
+using Assets.Scripts.Singleton;
 using System.Collections;
 using UnityEngine;
 
-public class PillarController : MonoBehaviour {
+public class PillarController : Singleton<PillarController> {
 
     [Header("Pillar Segments")]
     [SerializeField] private Transform topSegment;
@@ -14,7 +15,7 @@ public class PillarController : MonoBehaviour {
     [SerializeField] private Vector2 rotationSpeedMinMax = new Vector2(32f, 35f);
 
     private enum EnumRunes { None, Cross, Triangle, Circle, Blank }
-    public enum EnumSegment { Top, Middle, Bottom }
+    [System.Serializable] public enum EnumSegment { None, Top, Middle, Bottom }
 
     private int rotationCost = 60;
 
@@ -66,9 +67,9 @@ public class PillarController : MonoBehaviour {
         }
     }
 
-    private void RotateSegment(EnumSegment segment, bool postiveDirection) {
+    public void RotateSegment(EnumSegment segment, bool isLeft) {
         float randomRotationSpeed = Random.Range(rotationSpeedMinMax.x, rotationSpeedMinMax.y);
-        if (!postiveDirection) randomRotationSpeed *= -1;
+        if (!isLeft) randomRotationSpeed *= -1; // Reverse direction for right rotation
         switch (segment) {
             case EnumSegment.Top:
                 if (this.currentTopRotationCoroutine != null) break; // Prevent starting a new rotation if one is already in progress
@@ -86,30 +87,25 @@ public class PillarController : MonoBehaviour {
     }
 
     private IEnumerator RotateSegment(Transform transform, EnumSegment segment, float rotationSpeed) {
-        EnumRunes startRune = GetRune(segment);
-        EnumRunes currentRune;
-        float amountRotated = 0f; // We need to rotate at least 120 degrees to change runes.
+        if (segment == EnumSegment.None) yield break; // Invalid segment, exit coroutine
+        float amountRotated = 0f; // Track how much we've rotated to ensure we don't exceed the rotation cost
 
-        if (segment == EnumSegment.Top) currentRune = this.currentTopRune;
-        else if (segment == EnumSegment.Middle) currentRune = this.currentMiddleRune;
-        else currentRune = this.currentBottomRune;
+        while (amountRotated <= this.rotationCost) {
 
-        bool isSuccessful = startRune == GetRune(segment) && startRune != currentRune;
-
-        while (amountRotated <= this.rotationCost && !isSuccessful) {
             float step = rotationSpeed * Time.deltaTime; // Calculate rotation step for this frame
             transform.Rotate(Vector3.up, step); // Rotate the segment
+
             amountRotated += Mathf.Abs(step);
-            yield return new WaitForEndOfFrame();
+
+            yield return null; // Wait for the next frame
         }
+
+        // After rotation is complete, snap to the nearest valid angle to ensure we end up in a correct position.
+        SnapToValidAngle(transform, out int validAngle);
 
         if (segment == EnumSegment.Top) this.currentTopRotationCoroutine = null;
         else if (segment == EnumSegment.Middle) this.currentMiddleRotationCoroutine = null;
-        else this.currentBottomRotationCoroutine = null;
-
-        // Snap the current rotation to the nearest valid angle to prevent drifting over multiple rotations
-        SnapToValidAngle(transform, out int validAngle);
-
+        else if (segment == EnumSegment.Bottom) this.currentBottomRotationCoroutine = null;
     }
 
     private bool SnapToValidAngle(Transform transform, out int validAngle) {
@@ -144,13 +140,16 @@ public class PillarController : MonoBehaviour {
 
     private EnumRunes GetRune(EnumSegment segment) {
         EnumRunes result = EnumRunes.None; // Default value if no valid rune is found
-        Transform targetTransform; // The transform reference of the specified segment
 
-        // Get the transform reference of the specified segment
-        if (segment == EnumSegment.Middle) {
-            targetTransform = this.middleSegment;
-            // Using localEulerAngles is safer in case the parent is rotated.
-        } else {
+        // Get the transform reference of the specified segment. Using localEulerAngles is safer in case the parent is rotated.
+        Transform targetTransform = segment switch {
+            EnumSegment.Top => this.topSegment,
+            EnumSegment.Middle => this.middleSegment,
+            EnumSegment.Bottom => this.bottomSegment,
+            _ => null
+        };
+
+        if (targetTransform == null) {
             Debug.LogWarning($"GetRune is not implemented for {segment}. Returning None.");
             return EnumRunes.None;
         }
@@ -160,25 +159,52 @@ public class PillarController : MonoBehaviour {
             return EnumRunes.None;
         }
 
-        Debug.Log($"Segment: {segment}, ValidAngle: {validAngle}");
+        switch (segment) {
+            case EnumSegment.Top:
+                if (validAngle == 0) {
+                    result = EnumRunes.Circle;
+                } else if (validAngle == this.rotationCost * 2) {
+                    result = EnumRunes.Triangle;
+                } else if (validAngle == this.rotationCost * 4) {
+                    result = EnumRunes.Cross;
+                }
 
-        if (segment == EnumSegment.Middle) {
-            if (validAngle == 0) {
-                result = EnumRunes.Cross;
-            } else if (validAngle == this.rotationCost * 2) {
-                result = EnumRunes.Triangle;
-            } else if (validAngle == this.rotationCost * 4) {
-                result = EnumRunes.Circle;
-            } else {
-                result = EnumRunes.Blank;
-            }
+                if (result != this.currentTopRune) {
+                    this.currentTopRune = result;
+                }
+                break;
+            case EnumSegment.Middle:
+                if (validAngle == 0) {
+                    result = EnumRunes.Cross;
+                } else if (validAngle == this.rotationCost * 2) {
+                    result = EnumRunes.Triangle;
+                } else if (validAngle == this.rotationCost * 4) {
+                    result = EnumRunes.Circle;
+                } else {
+                    result = EnumRunes.Blank;
+                }
 
-            // Update current middle rune if it has changed
-            if (result != this.currentMiddleRune) {
-                this.currentMiddleRune = result;
-            }
+                // Update current middle rune if it has changed
+                if (result != this.currentMiddleRune) {
+                    this.currentMiddleRune = result;
+                }
+                break;
+            case EnumSegment.Bottom:
+                if (validAngle == 0) {
+                    result = EnumRunes.Triangle;
+                } else if (validAngle == this.rotationCost * 2) {
+                    result = EnumRunes.Cross;
+                } else if (validAngle == this.rotationCost * 4) {
+                    result = EnumRunes.Circle;
+                }
+
+                if (result != this.currentBottomRune) {
+                    this.currentBottomRune = result;
+                }
+                break;
         }
 
+        Debug.Log($"GetRune: Segment={segment}, ValidAngle={validAngle}, Result={result}");
         return result;
     }
 }

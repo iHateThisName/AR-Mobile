@@ -6,10 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 [RequireComponent(typeof(XRSimpleInteractable))]
 public class ARDragDetection : MonoBehaviour {
-    // Unity Events
-    [Header("Drag Events")]
-    [SerializeField] private UnityEvent OnLeftDrag;
-    [SerializeField] private UnityEvent OnRightDrag;
+    [SerializeField] private PillarController.EnumSegment controllSegment = PillarController.EnumSegment.None;
 
     private XRSimpleInteractable interactable;
     private Vector2 initialTouchPosition;
@@ -18,6 +15,12 @@ public class ARDragDetection : MonoBehaviour {
 
     private void Awake() {
         this.interactable = GetComponent<XRSimpleInteractable>();
+    }
+
+    private void Start() {
+        if (this.controllSegment == PillarController.EnumSegment.None) {
+            Debug.LogWarning("Controll Segment is set to None. Please assign a valid segment to control.");
+        }
     }
 
     private void OnEnable() {
@@ -71,9 +74,14 @@ public class ARDragDetection : MonoBehaviour {
 
 
     private void HandleDrag(Vector2 delta) {
+        if (this.controllSegment == PillarController.EnumSegment.None) {
+            Debug.LogError("Controll Segment is not assigned.");
+            return;
+        }
+
         if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y)) {
-            if (delta.x > 0) this.OnRightDrag?.Invoke();
-            else this.OnLeftDrag?.Invoke();
+            if (delta.x > 0) GameManager.Instance.MoveSegment(this.controllSegment, false);
+            else GameManager.Instance.MoveSegment(this.controllSegment, true);
         }
     }
 }

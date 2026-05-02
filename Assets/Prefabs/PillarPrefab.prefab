@@ -590,36 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24551f4e5f2e3468d1eeb9038822be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARDragDetection
-  OnLeftDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateLeftByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRightDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateRightByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  controllSegment: 3
 --- !u!64 &9060695056722951896
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -738,36 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24551f4e5f2e3468d1eeb9038822be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARDragDetection
-  OnLeftDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateLeftByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRightDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateRightByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  controllSegment: 1
 --- !u!64 &2458186684214119655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -882,36 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24551f4e5f2e3468d1eeb9038822be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARDragDetection
-  OnLeftDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateLeftByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnRightDrag:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6239930348098783258}
-        m_TargetAssemblyTypeName: PillarController, Assembly-CSharp
-        m_MethodName: RotateRightByEnumIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  controllSegment: 2
 --- !u!64 &1401503490016020079
 MeshCollider:
   m_ObjectHideFlags: 0
