@@ -53,4 +53,10 @@ public class GameManager : Singleton<GameManager> {
         return DialogueLines[dialogueType].Length;
     }
 
+    public IEnumerator GameWin() {
+        CanvasController.Instance.StartNextConversation(EnumDialogueType.Completion);
+        yield return new WaitForSeconds(0.25f);
+        yield return new WaitUntil(() => CanvasController.Instance.IsInformationPanelActive == false);
+        CanvasController.Instance.StartNextConversation(EnumDialogueType.Ending);
+    }
 }

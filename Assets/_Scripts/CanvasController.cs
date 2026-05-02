@@ -19,7 +19,7 @@ public class CanvasController : Singleton<CanvasController> {
 
     // Information panel configurations
     private float informationTextSpeed = 0.02f;
-    private bool isInformationPanelActive = false;
+    public bool IsInformationPanelActive { get; private set; } = false;
 
 
     private EnumDialogueType currentDialogueType = EnumDialogueType.None;
@@ -79,7 +79,7 @@ public class CanvasController : Singleton<CanvasController> {
         }
     }
     private void OnInformationPanelButton() {
-        if (this.isInformationPanelActive) ShowDialog();
+        if (this.IsInformationPanelActive) ShowDialog();
     }
     private void EnableAllInteracitonButtons() {
         this.OneButton.gameObject.SetActive(true);
@@ -98,16 +98,16 @@ public class CanvasController : Singleton<CanvasController> {
 
     private void DisableInformationPanel() {
         this.InformationPanelButton.gameObject.SetActive(false);
-        this.isInformationPanelActive = false;
+        this.IsInformationPanelActive = false;
     }
 
     private void EnableInformationPanel() {
         this.InformationPanelButton.gameObject.SetActive(true);
-        this.isInformationPanelActive = true;
+        this.IsInformationPanelActive = true;
     }
 
     private void ShowDialog() {
-        if (!this.isInformationPanelActive) {
+        if (!this.IsInformationPanelActive) {
             Debug.LogWarning("Trying to show dialog while information panel is not active.");
             return;
         }
@@ -167,7 +167,7 @@ public class CanvasController : Singleton<CanvasController> {
             this.currentTypingCoroutine = null;
         }
 
-        if (!this.isInformationPanelActive) EnableInformationPanel();
+        if (!this.IsInformationPanelActive) EnableInformationPanel();
         ShowDialog();
     }
 }

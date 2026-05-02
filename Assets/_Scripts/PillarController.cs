@@ -42,6 +42,13 @@ public class PillarController : Singleton<PillarController> {
     [ContextMenu("Rotate Middle Left")] public void RotateMiddleLeft() => RotateSegment(EnumSegment.Middle, true);
     [ContextMenu("Rotate Middle Right")] public void RotateMiddleRight() => RotateSegment(EnumSegment.Middle, false);
 
+    [ContextMenu("Debug front all segments")] public void DebugFrontAllSegments() {
+        string debugText = $"Current Top Rune: {GetRune(EnumSegment.Top)}\n"
+                           + $"Current Middle Rune: {GetRune(EnumSegment.Middle)}\n"
+                           + $"Current Bottom Rune: {GetRune(EnumSegment.Bottom)}";
+        Debug.Log(debugText);
+    }
+
     public void RotateLeftByEnumIndex(int segmentIndex) => RotateSegment((EnumSegment)segmentIndex, true);
     public void RotateRightByEnumIndex(int segmentIndex) => RotateSegment((EnumSegment)segmentIndex, false);
 
@@ -106,6 +113,14 @@ public class PillarController : Singleton<PillarController> {
         if (segment == EnumSegment.Top) this.currentTopRotationCoroutine = null;
         else if (segment == EnumSegment.Middle) this.currentMiddleRotationCoroutine = null;
         else if (segment == EnumSegment.Bottom) this.currentBottomRotationCoroutine = null;
+
+        CheckWinCondition(); // Check if the new configuration meets the win condition after rotation
+        StartCoroutine(DelayedCheckWinCondition());
+    }
+
+    private IEnumerator DelayedCheckWinCondition() {
+        yield return new WaitForSeconds(0.2f);
+        CheckWinCondition();
     }
 
     private bool SnapToValidAngle(Transform transform, out int validAngle) {
@@ -205,6 +220,17 @@ public class PillarController : Singleton<PillarController> {
         }
 
         Debug.Log($"GetRune: Segment={segment}, ValidAngle={validAngle}, Result={result}");
+        CheckWinCondition();
         return result;
+    }
+
+    private void CheckWinCondition() {
+        bool front = this.currentTopRune == EnumRunes.Circle && this.currentMiddleRune == EnumRunes.Circle && this.currentBottomRune == EnumRunes.Triangle;
+        bool leftFront = this.currentTopRune == EnumRunes.Cross && this.currentMiddleRune == EnumRunes.Triangle && this.currentBottomRune == EnumRunes.Circle;
+        bool rightFront = this.currentTopRune == EnumRunes.Triangle && this.currentMiddleRune == EnumRunes.Cross && this.currentBottomRune == EnumRunes.Cross;
+        if (this.currentTopRune == EnumRunes.Circle && this.currentMiddleRune == EnumRunes.Circle && this.currentBottomRune == EnumRunes.Triangle) {
+            Debug.Log("Win Condition Met!");
+            StartCoroutine(GameManager.Instance.GameWin());
+        }
     }
 }
