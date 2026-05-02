@@ -55,6 +55,7 @@ public class GameManager : Singleton<GameManager> {
 
     public IEnumerator GameWin() {
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Completion);
+        CanvasController.Instance.DisableAllInteractionButtons();
         yield return new WaitForSeconds(0.25f);
         yield return new WaitUntil(() => CanvasController.Instance.IsInformationPanelActive == false);
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Ending);

@@ -88,7 +88,7 @@ public class CanvasController : Singleton<CanvasController> {
         this.LeftButton.gameObject.SetActive(true);
         this.RightButton.gameObject.SetActive(true);
     }
-    private void DisableAllInteractionButtons() {
+    public void DisableAllInteractionButtons() {
         this.OneButton.gameObject.SetActive(false);
         this.TwoButton.gameObject.SetActive(false);
         this.ThreeButton.gameObject.SetActive(false);

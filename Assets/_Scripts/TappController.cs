@@ -37,7 +37,6 @@ public class TappController : MonoBehaviour {
         if (this.tappNumber == GameManager.Instance.MaxTaps) {
             this.modelPuzzel.gameObject.SetActive(true);
             this.OnPuzzelSpawn.Invoke();
-            CanvasController.Instance.StartNextConversation(EnumDialogueType.Obelisk);
         } else if (this.tappNumber == 2) {
             this.modelTappTwo.gameObject.SetActive(true);
             CanvasController.Instance.StartNextConversation(EnumDialogueType.RiftOpened);

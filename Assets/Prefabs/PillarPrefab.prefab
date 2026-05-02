@@ -125,7 +125,7 @@ MonoBehaviour:
   topSeprationSegment: {fileID: 3737568780890300740}
   bottomSeprationSegment: {fileID: 1817777064965022292}
   seperationRotationSpeedMinMax: {x: 2, y: 4}
-  rotationSpeedMinMax: {x: 25, y: 30}
+  rotationSpeedMinMax: {x: 25, y: 35}
 --- !u!1 &7800991861453093444
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,9 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f28dad3cd872146b4251904f1780a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationEventHandler
-  animationEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  chainModel: {fileID: 8363726932555036148}
 --- !u!1001 &8705603786091153573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2846,6 +2844,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26dd0e4c55220a044931cb12d9226d2e, type: 3}
+--- !u!1 &8363726932555036148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 26dd0e4c55220a044931cb12d9226d2e, type: 3}
+  m_PrefabInstance: {fileID: 8705603786091153573}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9176715332927041358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26dd0e4c55220a044931cb12d9226d2e, type: 3}
