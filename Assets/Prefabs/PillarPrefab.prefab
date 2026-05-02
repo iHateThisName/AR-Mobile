@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8246801693442087064, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3767381732068805964, guid: 3d51ea8540453e34cb6ec235b6334f45, type: 3}
     - target: {fileID: -5753686276294860288, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
       propertyPath: m_Name
       value: TopSegment
@@ -427,6 +431,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiddleSegment
       objectReference: {fileID: 0}
+    - target: {fileID: -4691242219896382096, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ed8fafc34c84fa4fa598f1e131ba42f, type: 2}
+    - target: {fileID: -4552398659817207416, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ed8fafc34c84fa4fa598f1e131ba42f, type: 2}
+    - target: {fileID: -3528893289341080508, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7106932183278861348, guid: 3d51ea8540453e34cb6ec235b6334f45, type: 3}
     - target: {fileID: -2797116113607680150, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
       propertyPath: m_Name
       value: BottomSeperator
@@ -451,6 +467,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1867959985371672993, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 450490519458044171, guid: 3d51ea8540453e34cb6ec235b6334f45, type: 3}
+    - target: {fileID: -1546112875798683551, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8515847636535086084, guid: 3d51ea8540453e34cb6ec235b6334f45, type: 3}
     - target: {fileID: 919132149155446097, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
       propertyPath: m_Name
       value: 4TObelisk
@@ -459,10 +483,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1824740938531188312, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 865364500728811083, guid: 3d51ea8540453e34cb6ec235b6334f45, type: 3}
+    - target: {fileID: 2759700837428721209, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ed8fafc34c84fa4fa598f1e131ba42f, type: 2}
+    - target: {fileID: 4035108216197494076, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ed8fafc34c84fa4fa598f1e131ba42f, type: 2}
     - target: {fileID: 5608734652010824522, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
       propertyPath: m_Name
       value: BottomSegment
       objectReference: {fileID: 0}
+    - target: {fileID: 8477629220750789869, guid: 5a0e664cc9e83704a9e904ffafbb23f7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ed8fafc34c84fa4fa598f1e131ba42f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -913,6 +953,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f28dad3cd872146b4251904f1780a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimationEventHandler
+  animationEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &9077865682706758138
 PrefabInstance:
   m_ObjectHideFlags: 0
