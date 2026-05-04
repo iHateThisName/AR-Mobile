@@ -12,6 +12,8 @@ public class GameManager : Singleton<GameManager> {
     [field: SerializeField] public int MaxTaps { get; private set; } = 3;
     [SerializeField] private GameObject pillarPrefab;
 
+    [SerializeField] private GameObject sphereOverlay;
+
     public static Dictionary<EnumDialogueType, string[]> DialogueLines { get; private set; } = new Dictionary<EnumDialogueType, string[]> {
         { EnumDialogueType.None, new string[] {} },
         { EnumDialogueType.Scan, DialogueTreeData.ScanEnvironmentText },
@@ -59,5 +61,7 @@ public class GameManager : Singleton<GameManager> {
         yield return new WaitForSeconds(0.25f);
         yield return new WaitUntil(() => CanvasController.Instance.IsInformationPanelActive == false);
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Ending);
+        var renderer = sphereOverlay.GetComponent<Renderer>();
+        renderer.material.SetFloat("_CuttoffHeight", 3f);
     }
 }
