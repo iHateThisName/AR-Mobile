@@ -14,6 +14,7 @@ public class PillarController : Singleton<PillarController> {
     [SerializeField] private Vector2 seperationRotationSpeedMinMax = new Vector2(2f, 4f);
     [SerializeField] private Vector2 rotationSpeedMinMax = new Vector2(32f, 35f);
 
+    [SerializeField] private AnimationEventHandler animationEventHandler;
     private enum EnumRunes { None, Cross, Triangle, Circle, Blank }
     [System.Serializable] public enum EnumSegment { None, Top, Middle, Bottom }
 
@@ -26,6 +27,9 @@ public class PillarController : Singleton<PillarController> {
     private Coroutine currentTopRotationCoroutine, currentMiddleRotationCoroutine, currentBottomRotationCoroutine;
 
     private void Start() {
+        if (this.animationEventHandler == null) {
+            this.animationEventHandler = this.transform.root.GetComponentInChildren<AnimationEventHandler>();
+        }
 
         float topSeparationRotationSpeed = Random.Range(seperationRotationSpeedMinMax.x, seperationRotationSpeedMinMax.y);
         float bottomSeparationRotationSpeed = Random.Range(seperationRotationSpeedMinMax.x, seperationRotationSpeedMinMax.y);
@@ -234,8 +238,15 @@ public class PillarController : Singleton<PillarController> {
         bool rightFront = this.currentTopRune == EnumRunes.Triangle && this.currentMiddleRune == EnumRunes.Cross && this.currentBottomRune == EnumRunes.Cross;
         if (front || leftFront || rightFront) {
             Debug.Log("Win Condition Met!");
-            StartCoroutine(GameManager.Instance.GameWin());
-            this.topSegment.parent.parent.parent.gameObject.SetActive(false);
+            StartCoroutine(GameManager.Instance.GameWin(this.animationEventHandler));
         }
+    }
+
+    public void DisableModels() {
+        this.topSegment.gameObject.SetActive(false);
+        this.middleSegment.gameObject.SetActive(false);
+        this.bottomSegment.gameObject.SetActive(false);
+        this.topSeprationSegment.gameObject.SetActive(false);
+        this.bottomSeprationSegment.gameObject.SetActive(false);
     }
 }

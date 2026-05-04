@@ -56,12 +56,13 @@ public class GameManager : Singleton<GameManager> {
         return DialogueLines[dialogueType].Length;
     }
 
-    public IEnumerator GameWin() {
+    public IEnumerator GameWin(AnimationEventHandler animationEventHandler) {
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Completion);
         CanvasController.Instance.DisableAllInteractionButtons();
-        StartCoroutine(SimultateVoidIncrease());
+        animationEventHandler.OnSolved();
 
         yield return new WaitUntil(() => CanvasController.Instance.IsInformationPanelActive == false);
+        yield return StartCoroutine(SimultateVoidIncrease());
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Ending);
     }
 

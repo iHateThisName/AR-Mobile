@@ -18,7 +18,7 @@ public class CanvasController : Singleton<CanvasController> {
     private PillarController.EnumSegment currentSegment = PillarController.EnumSegment.None;
 
     // Information panel configurations
-    private float informationTextSpeed = 0.02f;
+    private float informationTextSpeed = 0.01f;
     public bool IsInformationPanelActive { get; private set; } = false;
 
 

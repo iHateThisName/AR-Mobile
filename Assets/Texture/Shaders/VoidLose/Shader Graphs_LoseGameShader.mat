@@ -52,7 +52,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 0
     - _Cull: 1
-    - _CuttoffHeight: -2
+    - _CuttoffHeight: 3
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Glow_Thickness: 0.2

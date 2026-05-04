@@ -3,6 +3,12 @@ using UnityEngine;
 public class AnimationEventHandler : MonoBehaviour {
 
     [SerializeField] private GameObject chainModel;
+    private Animator animator;
+    private void Start() {
+        if (this.chainModel == null) Debug.LogError("Chain Model is not assigned.");
+        this.chainModel.SetActive(false);
+        animator = GetComponent<Animator>();
+    }
 
     public void OnAnimationEvent(string eventName) {
         Debug.Log($"Animation Event Triggered: {eventName}");
@@ -17,7 +23,11 @@ public class AnimationEventHandler : MonoBehaviour {
 
     }
     public void TurnOffAnimator() {
-        Animator animator = GetComponent<Animator>();
-        animator.enabled = false;
+        this.animator.enabled = false;
+    }
+
+    public void OnSolved() {
+        this.animator.SetBool("IsSolved", true);
+        this.animator.enabled = true;
     }
 }
