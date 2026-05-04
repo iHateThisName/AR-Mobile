@@ -1884,11 +1884,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d93690ee32774cc4bb01c6962b61c3b0, type: 3}
---- !u!1 &1416112465 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6504777131918915049, guid: d93690ee32774cc4bb01c6962b61c3b0, type: 3}
-  m_PrefabInstance: {fileID: 1416112464}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1416112466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6736921983263056122, guid: d93690ee32774cc4bb01c6962b61c3b0, type: 3}
@@ -2408,7 +2403,7 @@ MonoBehaviour:
   <CurrentTaps>k__BackingField: 0
   <MaxTaps>k__BackingField: 3
   pillarPrefab: {fileID: 8281726281890059203, guid: 26f2d8bf1e0e39a4a81ce7256d37a416, type: 3}
-  sphereOverlay: {fileID: 1416112465}
+  sphereVoidOverlay: {fileID: 2100000, guid: a6257ddb39b3cb541960e7cce0d30e76, type: 2}
 --- !u!4 &1734495847
 Transform:
   m_ObjectHideFlags: 0

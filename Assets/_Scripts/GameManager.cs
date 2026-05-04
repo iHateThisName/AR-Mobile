@@ -12,7 +12,8 @@ public class GameManager : Singleton<GameManager> {
     [field: SerializeField] public int MaxTaps { get; private set; } = 3;
     [SerializeField] private GameObject pillarPrefab;
 
-    [SerializeField] private GameObject sphereOverlay;
+    [SerializeField] private Material sphereVoidOverlay;
+    private readonly string sphereVoidCutoffHeightProperty = "_CuttoffHeight";
 
     public static Dictionary<EnumDialogueType, string[]> DialogueLines { get; private set; } = new Dictionary<EnumDialogueType, string[]> {
         { EnumDialogueType.None, new string[] {} },
@@ -25,7 +26,7 @@ public class GameManager : Singleton<GameManager> {
     };
 
     private IEnumerator Start() {
-        
+        this.sphereVoidOverlay.SetFloat(this.sphereVoidCutoffHeightProperty, -2f);
         yield return new WaitForSeconds(3f);
 
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Scan);
@@ -58,10 +59,21 @@ public class GameManager : Singleton<GameManager> {
     public IEnumerator GameWin() {
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Completion);
         CanvasController.Instance.DisableAllInteractionButtons();
-        yield return new WaitForSeconds(0.25f);
+        StartCoroutine(SimultateVoidIncrease());
+
         yield return new WaitUntil(() => CanvasController.Instance.IsInformationPanelActive == false);
         CanvasController.Instance.StartNextConversation(EnumDialogueType.Ending);
-        var renderer = sphereOverlay.GetComponent<Renderer>();
-        renderer.material.SetFloat("_CuttoffHeight", 3f);
+    }
+
+    private IEnumerator SimultateVoidIncrease() {
+        float currentVoidValue = 0f;
+        
+        while (currentVoidValue < 1f) {
+            currentVoidValue += (Time.deltaTime * 0.1f);
+            this.sphereVoidOverlay.SetFloat(this.sphereVoidCutoffHeightProperty, currentVoidValue);
+            yield return null;
+        }
+
+        this.sphereVoidOverlay.SetFloat(this.sphereVoidCutoffHeightProperty, 3f);
     }
 }
